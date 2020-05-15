@@ -89,6 +89,7 @@ class ReadMoreTextState extends State<ReadMoreText> {
       builder: (BuildContext context, BoxConstraints constraints) {
         assert(constraints.hasBoundedWidth);
         final double maxWidth = constraints.maxWidth;
+        final bool hasEllipsis = overflow == TextOverflow.ellipsis;
 
         // Create a TextSpan with data
         final text = TextSpan(
@@ -103,7 +104,7 @@ class ReadMoreTextState extends State<ReadMoreText> {
           textDirection: textDirection,
           textScaleFactor: textScaleFactor,
           maxLines: widget.trimLines,
-          ellipsis: overflow == TextOverflow.ellipsis ? _kEllipsis : null,
+          ellipsis: hasEllipsis ? _kEllipsis : null,
           locale: locale,
         );
         textPainter.layout(maxWidth: maxWidth);
@@ -158,9 +159,9 @@ class ReadMoreTextState extends State<ReadMoreText> {
               textSpan = TextSpan(
                 style: effectiveTextStyle,
                 text: _readMore
-                    ? widget.data.substring(0, endIndex) +
-                    (linkLongerThanLine ? _kLineSeparator : '')
-                    : widget.data,
+                    ? widget.data.substring(0, endIndex - (hasEllipsis ? _kEllipsis.length : 0) - 1) +
+                    (linkLongerThanLine ? _kLineSeparator : '${hasEllipsis ? _kEllipsis : ''} ')
+                    : widget.data + ' ',
                 children: <TextSpan>[link],
               );
             } else {
