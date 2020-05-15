@@ -80,6 +80,7 @@ class ReadMoreTextState extends State<ReadMoreText> {
       text: _readMore ? widget.trimCollapsedText : widget.trimExpandedText,
       style: effectiveTextStyle.copyWith(
         color: colorClickableText,
+        decoration: TextDecoration.underline,
       ),
       recognizer: TapGestureRecognizer()..onTap = _onTapLink,
     );
