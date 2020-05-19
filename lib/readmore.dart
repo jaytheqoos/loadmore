@@ -8,6 +8,8 @@ enum TrimMode {
   Line,
 }
 
+typedef BoolCallback = void Function(bool value);
+
 class ReadMoreText extends StatefulWidget {
   const ReadMoreText(
       this.data, {
@@ -23,6 +25,7 @@ class ReadMoreText extends StatefulWidget {
         this.textDirection,
         this.locale,
         this.textScaleFactor,
+        this.onChange,
         this.semanticsLabel,
       })  : assert(data != null),
         super(key: key);
@@ -39,6 +42,7 @@ class ReadMoreText extends StatefulWidget {
   final TextDirection textDirection;
   final Locale locale;
   final double textScaleFactor;
+  final BoolCallback onChange;
   final String semanticsLabel;
 
   @override
@@ -54,6 +58,7 @@ class ReadMoreTextState extends State<ReadMoreText> {
 
   void _onTapLink() {
     setState(() => _readMore = !_readMore);
+    widget.onChange(_readMore);
   }
 
   @override
