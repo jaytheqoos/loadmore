@@ -21,6 +21,7 @@ class ReadMoreText extends StatefulWidget {
         this.trimLines = 2,
         this.trimMode = TrimMode.Length,
         this.style,
+        this.strutStyle,
         this.textAlign,
         this.textDirection,
         this.locale,
@@ -38,6 +39,7 @@ class ReadMoreText extends StatefulWidget {
   final int trimLines;
   final TrimMode trimMode;
   final TextStyle style;
+  final StrutStyle strutStyle;
   final TextAlign textAlign;
   final TextDirection textDirection;
   final Locale locale;
@@ -111,6 +113,7 @@ class ReadMoreTextState extends State<ReadMoreText> {
           maxLines: widget.trimLines,
           ellipsis: hasEllipsis ? _kEllipsis : null,
           locale: locale,
+          strutStyle: widget.strutStyle,
         );
         textPainter.layout(maxWidth: maxWidth);
         final linkSize = textPainter.size;
@@ -190,6 +193,7 @@ class ReadMoreTextState extends State<ReadMoreText> {
           //overflow,
           textScaleFactor: textScaleFactor,
           text: textSpan,
+          strutStyle: widget.strutStyle,
         );
       },
     );
