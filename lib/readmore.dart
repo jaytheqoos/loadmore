@@ -14,6 +14,7 @@ class ReadMoreText extends StatefulWidget {
   const ReadMoreText(
       this.data, {
         Key key,
+    this.isCollapsed = true,
         this.trimExpandedText = ' read less',
         this.trimCollapsedText = ' ...read more',
         this.colorClickableText,
@@ -32,6 +33,7 @@ class ReadMoreText extends StatefulWidget {
         super(key: key);
 
   final String data;
+  final bool isCollapsed;
   final String trimExpandedText;
   final String trimCollapsedText;
   final Color colorClickableText;
@@ -61,6 +63,12 @@ class ReadMoreTextState extends State<ReadMoreText> {
   void _onTapLink() {
     setState(() => _readMore = !_readMore);
     widget.onChange(_readMore);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _readMore = widget.isCollapsed;
   }
 
   @override
